@@ -1,0 +1,47 @@
+server:
+  port: ${PORT:8080}
+  address: 0.0.0.0
+
+  #ssl:
+    #enabled: true
+    #key-alias: local_ssl
+    #key-store: classpath:local-ssl.p12
+    #key-store-type: PKCS12
+    #key-password: rabieimghi
+    #key-store-password: rabieimghi
+spring:
+  docker:
+    compose:
+      enabled: false
+      file: src/main/docker/compose.yml
+      lifecycle-management: start_only
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://database-2.c5oqiaeketyz.eu-north-1.rds.amazonaws.com:3306/hunterdb?useSSL=true&requireSSL=true&serverTimezone=UTC
+    username: admin
+    password: Rabie2003
+
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  liquibase:
+    enabled: true
+    change-log: db/changelog/master.yaml
+
+
+  task:
+    scheduling:
+      enabled: true
+
+  sonar:
+    login: ${SONAR_PASSWORD}
+
+
